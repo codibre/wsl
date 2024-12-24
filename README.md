@@ -13,3 +13,10 @@ Here you can find a bae wsl image with:
 
 
 Also, every image of docker is put inside /home/user, to use the said compression, saving disk space
+
+To import this image, just download, uncompress it, and run the following:
+```bash
+wsl --import myubuntu --version 2 $env:USERPROFILE\my-ubuntu .\ext4.vhdx --vhd
+```
+
+You can change the distribution to whatever you want, like Ubuntu, and that's it! It's ready to use.
