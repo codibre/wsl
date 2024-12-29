@@ -9,7 +9,7 @@ sudo mount -o loop /btrfs.img /mnt/btrfs
 sudo btrfs property set /mnt/btrfs compression zstd
 
 # Add entry to /etc/fstab
-echo "/btrfs.img /home/user btrfs loop,compress=zstd 0 0" | sudo tee -a /etc/fstab
+echo "/btrfs.img $HOME btrfs loop,compress=zstd 0 0" | sudo tee -a /etc/fstab
 
 # Add entry to /etc/wsl.conf
 sudo bash -c 'cat <<EOF >> /etc/wsl.conf
@@ -18,16 +18,16 @@ mountFsTab=true
 EOF'
 
 cd /
-sudo umount /home/user
+sudo umount $HOME
 sudo mount -a
 
-sudo chown -R $USER:$USER /home/user
+sudo chown -R $USER:$USER $HOME
 # Update package list and install Zsh
 sudo apt update
-RUNZSH=no sudo apt install -y zsh
+sudo apt install -y zsh
 
 # Install Oh My Zsh
-RUNZSH=no sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+RUNZSH=no CHSH=no sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
 # Install Zsh Autosuggestions
 git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
@@ -64,13 +64,15 @@ echo \
 sudo apt-get update
 sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 sudo usermod -aG docker $USER
-newgrp docker
 sudo systemctl start docker
-echo '{"data-root": "/home/user/docker"}' | sudo tee /etc/docker/daemon.json
+echo '{"data-root": "$HOME/docker"}' | sudo tee /etc/docker/daemon.json
 sudo systemctl restart docker
+echo 'setting docker permissions to $HOME/docker'
+sudo chown -R root:docker $HOME/docker
+sudo chmod -R 700 $HOME/docker
+echo 'checking docker info'
 docker info | grep "Docker Root Dir"
-sudo chown -R root:docker /home/user/docker
-sudo chmod -R 700 /home/user/docker
+echo 'installing gh'
 sudo apt install -y gh
 
 # Add environment variables to ~/.zshrc
@@ -89,3 +91,4 @@ sudo ln -s $HOME/dotnet/dotnet /usr/local/bin/dotnet
 
 # Change the default shell to Zsh at the end of the script
 chsh -s $(which zsh)
+zsh
