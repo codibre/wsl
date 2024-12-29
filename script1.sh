@@ -16,3 +16,7 @@ sudo bash -c 'cat <<EOF >> /etc/wsl.conf
 [automount]
 mountFsTab=true
 EOF'
+
+cd /
+sudo umount /home/user
+sudo mount -a
