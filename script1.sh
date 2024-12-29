@@ -24,10 +24,10 @@ sudo mount -a
 sudo chown -R $USER:$USER /home/user
 # Update package list and install Zsh
 sudo apt update
-sudo apt install -y zsh
+RUNZSH=no sudo apt install -y zsh
 
 # Install Oh My Zsh
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+RUNZSH=no sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
 # Install Zsh Autosuggestions
 git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
@@ -46,9 +46,6 @@ export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || pr
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
 nvm install 22
 nvm alias default 22
-
-# Apply changes
-source ~/.zshrc
 
 echo "Installation complete! Zsh, Oh My Zsh, Zsh Autosuggestions, Zsh Syntax Highlighting, and Node.js 22 are set up."
 
@@ -90,4 +87,5 @@ echo "export PATH=\$PATH:\$HOME/.dotnet/tools" | tee -a ~/.bashrc
 sudo ln -s $HOME/dotnet /usr/local/share/dotnet
 sudo ln -s $HOME/dotnet/dotnet /usr/local/bin/dotnet
 
-source ~/.zshrc
+# Change the default shell to Zsh at the end of the script
+chsh -s $(which zsh)
