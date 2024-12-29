@@ -51,7 +51,7 @@ echo "Installation complete! Zsh, Oh My Zsh, Zsh Autosuggestions, Zsh Syntax Hig
 
 # Add Docker's official GPG key:
 sudo apt-get update
-sudo apt-get install ca-certificates curl
+sudo apt-get install ca-certificates curl -y
 sudo install -m 0755 -d /etc/apt/keyrings
 sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
 sudo chmod a+r /etc/apt/keyrings/docker.asc
@@ -62,7 +62,7 @@ echo \
   $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
   sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 sudo apt-get update
-sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 sudo usermod -aG docker $USER
 newgrp docker
 sudo systemctl start docker
@@ -71,7 +71,7 @@ sudo systemctl restart docker
 docker info | grep "Docker Root Dir"
 sudo chown -R root:docker /home/user/docker
 sudo chmod -R 700 /home/user/docker
-sudo apt install gh
+sudo apt install -y gh
 
 # Add environment variables to ~/.zshrc
 echo "export DOTNET_ROOT=\$HOME/dotnet" | tee -a ~/.zshrc
