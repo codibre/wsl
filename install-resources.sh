@@ -65,9 +65,9 @@ sudo apt-get update
 sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 sudo usermod -aG docker $USER
 sudo systemctl start docker
-echo '{"data-root": "$HOME/docker"}' | sudo tee /etc/docker/daemon.json
+echo "{\"data-root\": \"$HOME/docker\"}" | sudo tee /etc/docker/daemon.json
 sudo systemctl restart docker
-echo 'setting docker permissions to $HOME/docker'
+echo "setting docker permissions to $HOME/docker"
 sudo chown -R root:docker $HOME/docker
 sudo chmod -R 700 $HOME/docker
 echo 'installing gh'
