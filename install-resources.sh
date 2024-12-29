@@ -88,5 +88,5 @@ sudo ln -s $HOME/dotnet /usr/local/share/dotnet
 sudo ln -s $HOME/dotnet/dotnet /usr/local/bin/dotnet
 
 # Change the default shell to Zsh at the end of the script
-chsh -s $(which zsh)
+sudo -k chsh -s $(which zsh) "$USER"
 zsh
