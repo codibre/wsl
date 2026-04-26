@@ -2,10 +2,10 @@
 
 sudo apt update
 sudo apt install btrfs-progs -y
-sudo dd if=/dev/zero of=/btrfs.img bs=1M count=40960
+sudo truncate -s 1T /btrfs.img
 sudo mkfs.btrfs -f /btrfs.img
-sudo mkdir /mnt/btrfs
-sudo mount -o loop /btrfs.img /mnt/btrfs
+sudo mkdir -p /mnt/btrfs
+sudo mount -o loop,compress=zstd /btrfs.img /mnt/btrfs
 sudo btrfs property set /mnt/btrfs compression zstd
 
 # Add entry to /etc/fstab
