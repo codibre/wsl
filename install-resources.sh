@@ -22,6 +22,7 @@ sudo umount $HOME
 sudo mount -a
 
 sudo chown -R $USER:$USER $HOME
+ sudo systemctl daemon-reload
 # Update package list and install Zsh
 sudo apt update
 sudo apt install -y zsh
